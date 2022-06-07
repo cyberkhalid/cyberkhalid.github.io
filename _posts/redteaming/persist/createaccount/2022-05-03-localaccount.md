@@ -28,7 +28,7 @@ net user apt password123 /add
 
 ![localuser](https://raw.githubusercontent.com/cyberkhalid/cyberkhalid.github.io/main/assets/img/ipentest/localuser.png)
 
-***Create user account, then add user account to administrators group using command prompt***
+***Creating local admin using command prompt***
 
 syntax
 > `net user [username] [password] /add`
@@ -58,7 +58,7 @@ New-LocalUser -Name apt
 
 ## Local Account On Linux
 
-***Creating local user account***
+***Creating local account on linux***
 
 syntax
 
