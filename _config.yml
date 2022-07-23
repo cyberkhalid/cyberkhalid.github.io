@@ -82,7 +82,7 @@ theme_mode:    dark
 img_cdn: 'https://raw.githubusercontent.com/cyberkhalid/cyberkhalid/main'
 
 # the avatar on sidebar, support local or CORS resources
-avatar: '/profile.jpeg'
+avatar: '/profile.png'
 
 # boolean type, the global switch for ToC in posts.
 toc: true
