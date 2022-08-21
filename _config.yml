@@ -23,7 +23,7 @@ timezone: Asia/Shanghai
 
 title: cyberkhalid                          # the main title
 
-tagline: Red Team || Pentester || • I love Opcodes and Shellcodes \x00 •   # it will display as the sub-title
+tagline: Red Team || Pentester || • \x80_\xCyb3rkh4l1d\x00 •   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   Offensive Security.
