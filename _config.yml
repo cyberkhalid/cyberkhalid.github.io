@@ -23,7 +23,7 @@ timezone: Asia/Shanghai
 
 title: cyberkhalid                          # the main title
 
-tagline: Red Team || Pentester || • @x80_xCyb3rkh4l1d\x00 •   # it will display as the sub-title
+tagline: Offensive Security || Red Team || Pentester || • 0xCyb3rkh4l1d •   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   Offensive Security.
@@ -43,7 +43,7 @@ social:
   email: cyberkhalid@protonmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/_cyberkhalid      # change to your twitter homepage
+    - https://twitter.com/0xCyb3rkh4l1d      # change to your twitter homepage
     - https://github.com/cyberkhalid       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
@@ -82,7 +82,7 @@ theme_mode:    dark
 img_cdn: 'https://raw.githubusercontent.com/cyberkhalid/cyberkhalid/main'
 
 # the avatar on sidebar, support local or CORS resources
-avatar: '/profile.png'
+avatar: '/cyberl.png'
 
 # boolean type, the global switch for ToC in posts.
 toc: true
