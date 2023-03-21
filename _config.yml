@@ -40,10 +40,10 @@ social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: cyberkhalid
-  email: cyberkhalid@protonmail.com             # change to your email address
+  email: root@cyberkhalid.com        # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/0xCyb3rkh4l1d      # change to your twitter homepage
+    - https://twitter.com/0xcyb3rkh4l1d      # change to your twitter homepage
     - https://github.com/cyberkhalid       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
